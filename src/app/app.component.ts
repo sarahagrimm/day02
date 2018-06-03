@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-// Classes
 class Greeting {
   message: string;
 
@@ -106,27 +105,22 @@ class Worker extends Person {
     return `My name is ${this.name} and I work in ${this.department}.`;
   }
 }
-// End Classes
-// Interfaces
-interface Stuff {
-  name: string;
-  age: number;
-  department?: string;
 
-  foo?(s: string);
-  // foo?(n: number);
-}
-
-class StuffTwo implements Stuff {
-  name: string;
-  age: number;
-
-  foo?(s: string) {
-    this.name = s;
+// Modules
+module Shapes {
+  export class Rectangle {
+    // height: number;
+    // width: number;
+    // constructor(height: number, width: number) {
+    //   this.height = height;
+    //   this.width = width;
+    // }
+    constructor(public height: number, public width: number) { }
   }
 
+  const rect1 = new Rectangle(10, 4);
 }
-// End Interface
+// End Modules
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -141,10 +135,12 @@ export class AppComponent implements OnInit {
     // this.classCompatibilityTesting();
     // this.extendDerivedClassTesting();
     // this.protectedTesting();
-    this.interfaceTesting({ name: "xyz", age: 25 });
+    // testing modules
+    const rect2 = new Shapes.Rectangle(20, 10);
+    console.log(rect2);
+    // console.log(Shapes.rect1); //not accessible since rect1 is not exported.
   }
 
-  // Class testing
   classTesting() {
     const greeter = new Greeting('world!');
     console.log(greeter.greet());
@@ -190,14 +186,5 @@ export class AppComponent implements OnInit {
     // const person = new Person("Patrick");
     // console.log(person);
   }
-  // End Class testing
-  // Interface testing
-  interfaceTesting(x: Stuff) {
-    console.log(`${x.name} is ${x.age} years old and works in ${x.department}.`);
-    // x.foo(5);
-    const stuff = new StuffTwo();
-    stuff.foo("test");
-    console.log(stuff.name);
-  }
-  // End Interface testing
+
 }
